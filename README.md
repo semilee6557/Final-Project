@@ -5,7 +5,7 @@ A full stack JavaScript application that allow users to manage their appoitment.
 ## Feature
 
 - User can create personal account.	
-- After creating new account, before making initial appointment patients need to fill out registration form and electronic signature for personal information.(medical record etc)	
+- User can fill out registration form.
 - User can log in.	
 - User can change account setting.
 - User can see their payment history.	
