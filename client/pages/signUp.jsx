@@ -37,7 +37,6 @@ export default class SignUp extends React.Component {
     if (!this.state.password && !this.state.regexMessage) {
       message = 'A password is reqired.';
       this.setState({ message: message });
-
     } else if (!this.state.password) {
       message = this.state.regexMessage;
       this.setState({ message: message });
@@ -55,6 +54,7 @@ export default class SignUp extends React.Component {
       this.createAccount(newAccount);
       this.setState({ email: '', password: '', confirmPassword: '', message: '' });
     }
+    window.location.hash = '#welcomePage';
   }
 
   createAccount(newAccount) {
@@ -71,7 +71,6 @@ export default class SignUp extends React.Component {
           this.setState({ errorMessage: 'Email is already registered. Please log-in.' });
         } else {
           this.setState({ errorMessage: '' });
-
           response.json();
         }
       })
