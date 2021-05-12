@@ -40,7 +40,7 @@ export default class App extends React.Component {
   render() {
     return (
     <>
-     <Nav />
+     <Nav isLogedIn={this.state.isLogedIn}/>
      <div className="container mt-5">
        <div className="row justify-content-md-center">
         { this.renderPage() }

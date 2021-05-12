@@ -22,22 +22,6 @@ app.use(jsonMiddleware);
 
 app.use(staticMiddleware);
 
-// app.get('/api/auth/sign-up', (req, res, next) => {
-
-//   const sql = `
-//     select *
-//       from "users"
-//       where "email" = $1;
-//   `;
-//   const params = 'semilee6557@gmail.com';
-
-//   db.query(sql, params)
-//     .then(result => {
-//       res.json(result.rows);
-//     })
-//     .catch(err => next(err));
-// });
-
 app.post('/api/auth/sign-up', (req, res, next) => {
   const {
     email,
@@ -46,18 +30,6 @@ app.post('/api/auth/sign-up', (req, res, next) => {
   if (!email || !password) {
     throw new ClientError(400, 'Email and password are required fields.');
   }
-  // const sql = `
-  //   select *
-  //     from "users"
-  //    where "email" = $1
-  // `;
-
-  // db.query(sql, [email])
-  //   .then(result => {
-  //     const user = result.rows[0];
-  //     if (user) {
-  //       throw new ClientError(400, 'User is existed');
-  //     }
 
   argon2
     .hash(password)
@@ -76,7 +48,6 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     })
     .catch(err => next(err));
 });
-// });
 
 app.post('/api/auth/sign-in', (req, res, next) => {
   const { email, password } = req.body;
