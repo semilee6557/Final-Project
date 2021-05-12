@@ -11,7 +11,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       route: parseRoute(window.location.hash),
-      isLogedIn: false
+      isLogedIn: false,
+      finishedRegistrationForm: false
     };
   }
 
@@ -24,7 +25,7 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
-      return <Home isLogedIn={this.state.isLogedIn}/>;
+      return <Home isLogedIn={this.state.isLogedIn} finishedRegistrationForm ={this.state.finishedRegistrationForm}/>;
     }
     if (route.path === 'signIn') {
       return <SignIn />;
@@ -40,7 +41,7 @@ export default class App extends React.Component {
   render() {
     return (
     <>
-     <Nav isLogedIn={this.state.isLogedIn}/>
+     <Nav isLogedIn={this.state.isLogedIn} finishedRegistrationForm ={this.state.finishedRegistrationForm}/>
      <div className="container mt-5">
        <div className="row justify-content-md-center">
         { this.renderPage() }

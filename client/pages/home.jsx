@@ -2,10 +2,14 @@ import React from 'react';
 
 export default function Home(props) {
   const isLogedIn = props.isLogedIn;
+  const finishedRegistrationForm = props.finishedRegistrationForm;
   if (!isLogedIn) {
     return <LogedOutHome />;
+  } else if (isLogedIn && !finishedRegistrationForm) {
+    window.location.hash = '#welcomePage';
+  } else {
+    return <LogedInHome />;
   }
-  return <LogedInHome />;
 }
 
 function LogedOutHome(props) {
