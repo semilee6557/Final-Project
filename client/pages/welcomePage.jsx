@@ -8,7 +8,7 @@ export default function WelcomePage(props) {
           <h1>Welcome</h1>
           <h1>Please fill out registration form to finish your registration.</h1>
         </div>
-        <button href={'#signUp'} type="button" className="btn btn-lg btn-danger">REGISTRATION FORM</button>
+        <button type="button" className="btn btn-lg btn-danger"><a href={'#registrationForm'} > REGISTRATION FORM</a></button>
 </div>
       </>
   );
