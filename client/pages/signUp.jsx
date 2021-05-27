@@ -54,7 +54,8 @@ export default class SignUp extends React.Component {
       this.createAccount(newAccount);
       this.setState({ email: '', password: '', confirmPassword: '', message: '' });
     }
-    window.location.hash = '#welcomePage';
+    window.location.hash = '#signIn';
+
   }
 
   createAccount(newAccount) {

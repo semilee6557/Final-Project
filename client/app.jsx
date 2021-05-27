@@ -4,6 +4,8 @@ import Nav from './pages/nav';
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import WelcomePage from './pages/welcomePage';
+import RegistrationForm from './pages/registrationForm';
+import CompleteIntakeForm from './pages/completeIntakeForm';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -12,8 +14,19 @@ export default class App extends React.Component {
     this.state = {
       route: parseRoute(window.location.hash),
       isLogedIn: false,
-      finishedRegistrationForm: false
+      finishedRegistrationForm: false,
+      userData: null
     };
+    this.userInfo = this.userInfo.bind(this);
+    this.registrationformStatus = this.registrationformStatus.bind(this);
+  }
+
+  userInfo(userData) {
+    this.setState({ userData, isLogedIn: true });
+  }
+
+  registrationformStatus() {
+    this.setState({ finishedRegistrationForm: true });
   }
 
   componentDidMount() {
@@ -28,13 +41,19 @@ export default class App extends React.Component {
       return <Home isLogedIn={this.state.isLogedIn} finishedRegistrationForm ={this.state.finishedRegistrationForm}/>;
     }
     if (route.path === 'signIn') {
-      return <SignIn />;
+      return <SignIn userInfo={this.userInfo} />;
     }
     if (route.path === 'signUp') {
       return <SignUp />;
     }
     if (route.path === 'welcomePage') {
       return <WelcomePage />;
+    }
+    if (route.path === 'registrationForm') {
+      return <RegistrationForm registrationformStatus={this.registrationformStatus} userData={this.state.userData} />;
+    }
+    if (route.path === 'completeIntakeForm') {
+      return <CompleteIntakeForm />;
     }
   }
 
