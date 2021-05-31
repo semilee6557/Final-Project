@@ -25,10 +25,12 @@ app.use(staticMiddleware);
 
 app.post('/api/auth/sign-up', (req, res, next) => {
   const {
+    name,
+    dob,
     email,
     password
   } = req.body;
-  if (!email || !password) {
+  if (!name || !dob || !email || !password) {
     throw new ClientError(400, 'Email and password are required fields.');
   }
 
@@ -36,11 +38,11 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .hash(password)
     .then(hashedPassword => {
       const sql = `
-        insert into "users" ("email", "hashedPassword")
-        values ($1, $2)
-        returning "userId", "email", "createdAt"
+        insert into "users" ("name","dob","email", "hashedPassword")
+        values ($1, $2, $3, $4)
+        returning "userId", "name","dob","email", "createdAt"
       `;
-      const params = [email, hashedPassword];
+      const params = [name, dob, email, hashedPassword];
       return db.query(sql, params);
     })
     .then(result => {
@@ -90,6 +92,36 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     .catch(err => next(err));
 
 });
+
+app.post('/search/email', (req, res, next) => {
+  const { name, dob } = req.body;
+  // console.log(name, dob);
+  if (!name || !dob) {
+    throw new ClientError(401, 'name and birthday is required.');
+  }
+
+  const sql = `
+    select *
+    from "users"
+    where "name"=$1
+  `;
+
+  const data = [name, dob];
+
+  db.query(sql, data)
+    .then(result => {
+      const user = result.rows[0];
+      if (!user) {
+        throw new ClientError(401, 'Invalid values');
+      }
+      res.status(201).json();
+      // console.log(user);
+
+    })
+    .catch(err => next(err));
+
+}
+);
 
 app.post('/api/intakeForms', (req, res, next) => {
   const {

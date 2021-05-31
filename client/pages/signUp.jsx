@@ -4,6 +4,8 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
+      dob: null,
       email: '',
       password: '',
       confirmPassword: '',
@@ -18,7 +20,8 @@ export default class SignUp extends React.Component {
 
   handleChange(event) {
     const name = event.target.name;
-    const value = event.target.value;
+    const value = event.target.name === 'name' ? event.target.value.toLowerCase() : event.target.value;
+
     this.setState({
       [name]: value
     });
@@ -34,32 +37,45 @@ export default class SignUp extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let message = '';
-    if (!this.state.password && !this.state.regexMessage) {
+    if (!this.state.name) {
+      message = 'Name is reqired.';
+      this.setState({ message: message });
+      return;
+    } else if (!this.state.dob) {
+      message = 'Date of birth is required';
+      this.setState({ message: message });
+      return;
+    } else if (!this.state.password && !this.state.regexMessage) {
       message = 'A password is reqired.';
       this.setState({ message: message });
+      return;
     } else if (!this.state.password) {
       message = this.state.regexMessage;
       this.setState({ message: message });
+      return;
     } else if (this.state.password.length < 7) {
       message = 'Your password is too short.';
       this.setState({ message: message });
+      return;
     } else if (this.state.password !== this.state.confirmPassword) {
       message = 'Your password is not matching. Try again.';
       this.setState({ message: message });
+      return;
     } else {
       const newAccount = {
+        name: this.state.name,
+        dob: this.state.dob,
         email: this.state.email,
         password: this.state.password
       };
       this.createAccount(newAccount);
-      this.setState({ email: '', password: '', confirmPassword: '', message: '' });
+      this.setState({ name: '', dob: null, email: '', password: '', confirmPassword: '', message: '' });
     }
     window.location.hash = '#signIn';
 
   }
 
   createAccount(newAccount) {
-
     fetch('/api/auth/sign-up', {
       method: 'POST',
       headers: {
@@ -90,6 +106,14 @@ export default class SignUp extends React.Component {
       <form className="container border p-5" onSubmit={this.handleSubmit}>
         <h4 className="text-center mb-5">Sign Up</h4>
         <div className="row mb-3">
+          <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
+          <div className="col-sm-10">
+            <input type="name" name="name" value={value.name} placeholder="Name" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
+          </div>
+          <label htmlFor="dob" className="col-sm-2 col-form-label">Date of Birth</label>
+          <div className="col-sm-10">
+            <input type="date" name="dob" value={value.dob} placeholder="Date of Birth" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
+          </div>
           <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
           <div className="col-sm-10">
             <input type="email" name="email" value={value.email} placeholder="Email" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
