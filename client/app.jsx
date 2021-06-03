@@ -6,6 +6,7 @@ import SignUp from './pages/signUp';
 import WelcomePage from './pages/welcomePage';
 import RegistrationForm from './pages/registrationForm';
 import CompleteIntakeForm from './pages/completeIntakeForm';
+import MyAccount from './pages/myAccount';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -26,7 +27,32 @@ export default class App extends React.Component {
   }
 
   registrationformStatus() {
-    this.setState({ finishedRegistrationForm: true });
+    const userId = this.state.userData.userId;
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: userId })
+    };
+    fetch('/api/intakeForm/search', req)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(result => {
+        if (result) {
+          this.setState({ finishedRegistrationForm: true });
+          window.location.hash = '#';
+        } else {
+          window.location.hash = '#welcomePage';
+
+        }
+
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
   }
 
   componentDidMount() {
@@ -41,7 +67,7 @@ export default class App extends React.Component {
       return <Home isLogedIn={this.state.isLogedIn} finishedRegistrationForm ={this.state.finishedRegistrationForm}/>;
     }
     if (route.path === 'signIn') {
-      return <SignIn userInfo={this.userInfo} />;
+      return <SignIn userInfo={this.userInfo} registrationformStatus={this.registrationformStatus} finishedRegistrationForm={this.finishedRegistrationForm} />;
     }
     if (route.path === 'signUp') {
       return <SignUp />;
@@ -54,6 +80,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'completeIntakeForm') {
       return <CompleteIntakeForm />;
+    }
+    if (route.path === 'myAccount') {
+      return <MyAccount userData={this.state.userData} />;
     }
   }
 
