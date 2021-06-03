@@ -39,13 +39,12 @@ export default class SignIn extends React.Component {
       })
       .then(result => {
         this.props.userInfo(result.user);
+        this.props.registrationformStatus();
         event.target.reset();
-        window.location.hash = '#welcomePage';
       })
       .catch(err => {
         console.error(err);
       });
-
   }
 
   handleChange(event) {
@@ -99,7 +98,7 @@ export default class SignIn extends React.Component {
           </div>
             </div>
         <div className="row mb-3">
-          <p className="help-block" onClick={() => this.openModal('id')}>forget email or PW?</p>
+          <p className="help-block" onClick={() => this.openModal('id')}>forget your email?</p>
         </div>
         <div className="row">
         <button type="submit" className="btn btn-primary col-3 offset-5">Sign In</button>
@@ -128,7 +127,7 @@ export default class SignIn extends React.Component {
         </Modal.Footer>
       </Modal>
 
-      <EmailSearch idModalOpen={this.state.idModalOpen} closeModal={this.closeModal} target = "id" />
+      <EmailSearch idModalOpen={this.state.idModalOpen} closeModal={this.closeModal} target = "id" openModal={this.openModal} />
       </>
     );
   }

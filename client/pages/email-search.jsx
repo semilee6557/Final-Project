@@ -7,46 +7,38 @@ export default class EmailSearch extends React.Component {
     this.state = {
       result: false,
       name: '',
-      dob: ''
+      dob: '',
+      email: '',
+      joinDate: null
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  // searchId() {
-
-  //   if (!result) {
-  //     alert('There is no matching data. Please creat new account.');
-  //   }
-  // }
-
   onChange(event) {
     const name = event.target.name;
     const value = name === 'name' ? event.target.value.toLowerCase() : event.target.value;
     this.setState({ [name]: value });
-    // console.log(name, value);
   }
 
   onSubmit(event) {
     event.preventDefault();
     const { result, ...data } = this.state;
-    // console.log('data', data);
     const req = {
       method: 'POST',
       headers: {
-        'Content-Type': 'appication/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     };
-
-    fetch('/search/email', req)
+    fetch('/api/search/email', req)
       .then(res => {
         if (res.ok) {
           return res.json();
         }
       })
       .then(result => {
-        // console.log(result);
+        this.setState({ email: result.email, result: true, joinDate: result.createdAt });
         event.target.reset();
       })
       .catch(err => {
@@ -81,27 +73,23 @@ export default class EmailSearch extends React.Component {
           </div>
         </div>
         <div className="row">
-        <button type="submit" className="btn btn-primary col ">Submit</button>
+        <button type="submit" className="btn btn-primary col m-2">Submit</button>
+        <button type="button" className="btn btn-primary col m-2" onClick={() => this.props.closeModal('id')}>Cancel</button>
         </div>
       </form>
             : <div>
-         <h4> Search email </h4>
+         <h4> Found your email </h4>
          <div className='Search_id_result'>
-           <p> Found your email</p>
            <div className='Search_id_result_div'>
              <div>
-               <h5> Email </h5>
-               {result[0].id}
+               <h5> Email: {this.state.email} </h5>
              </div>
              <div>
-               <h5> Join Ddate </h5>
-               {result[0].signup_date.slice(0, 10)}
+               <h5> Join Date: {this.state.joinDate} </h5>
              </div>
            </div>
            <div>
-             <input type='button' value='back' name='search_id_back'
-                    onClick={() => this._resetBack()}
-             />
+          <button type="button" className="btn btn-primary col m-2" onClick={() => this.props.closeModal('id')}>Close</button>
            </div>
          </div>
        </div>

@@ -59,8 +59,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
   }
 
   const sql = `
-    select "userId",
-           "hashedPassword"
+    select *
       from "users"
      where "email" = $1
   `;
@@ -71,14 +70,14 @@ app.post('/api/auth/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-      const { userId, hashedPassword } = user;
+      const { hashedPassword } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
           }
-          const payload = { userId, email };
+          const payload = user;
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
 
           const obj = {
@@ -93,9 +92,8 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 });
 
-app.post('/search/email', (req, res, next) => {
+app.post('/api/search/email', (req, res, next) => {
   const { name, dob } = req.body;
-  // console.log(name, dob);
   if (!name || !dob) {
     throw new ClientError(401, 'name and birthday is required.');
   }
@@ -103,7 +101,7 @@ app.post('/search/email', (req, res, next) => {
   const sql = `
     select *
     from "users"
-    where "name"=$1
+    where "name"=$1 AND "dob"=$2
   `;
 
   const data = [name, dob];
@@ -114,15 +112,12 @@ app.post('/search/email', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'Invalid values');
       }
-      res.status(201).json();
-      // console.log(user);
-
+      res.status(201).json(user);
     })
     .catch(err => next(err));
 
 }
 );
-
 app.post('/api/intakeForms', (req, res, next) => {
   const {
     userId,
@@ -163,6 +158,37 @@ app.post('/api/intakeForms', (req, res, next) => {
     .then(result => {
       const [obj] = result.rows;
       res.status(201).json(obj);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/intakeForm/search', (req, res, next) => {
+  const userId = req.body.userId;
+  const sql = `
+    select *
+    from "intakeForm"
+    where "userId"=$1;
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      const [data] = result.rows;
+      if (!data) {
+        throw new ClientError(401, 'data is missing');
+      }
+      res.json(data);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/images/insurance', (req, res, next) => {
+  const sql = `
+    select *
+      from "insurunceCard"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
     })
     .catch(err => next(err));
 });
