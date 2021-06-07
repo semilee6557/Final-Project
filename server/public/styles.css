@@ -31,3 +31,10 @@ td {
 .title {
   font-size: 30px;
 }
+
+.changePw {
+  background-color: #fa7f12;
+  border: black 1px solid;
+  padding: 4px;
+  text-decoration: none;
+}

@@ -92,6 +92,30 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 });
 
+app.put('/api/user/pw', (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new ClientError(401, 'email and password is required.');
+  }
+
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+       update "users"
+       set "hashedPassword" = $2
+       where "email"=$1
+     `;
+      const params = [email, hashedPassword];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/search/email', (req, res, next) => {
   const { name, dob } = req.body;
   if (!name || !dob) {
