@@ -7,6 +7,7 @@ import WelcomePage from './pages/welcomePage';
 import RegistrationForm from './pages/registrationForm';
 import CompleteIntakeForm from './pages/completeIntakeForm';
 import MyAccount from './pages/myAccount';
+import ChangePw from './pages/changePw';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -83,6 +84,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'myAccount') {
       return <MyAccount userData={this.state.userData} />;
+    }
+    if (route.path === 'changePw') {
+      return <ChangePw userData={this.state.userData} />;
     }
   }
 

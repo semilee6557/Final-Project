@@ -32,8 +32,7 @@ function AccountInfo(props) {
             </tr>
             <tr>
               <td>Password</td>
-              <td>****</td>
-              <td><button type='button'>CHANGE MY PASSWORD</button></td>
+              <td><a href={'#changePw'} className="changePw">CHANGE MY PASSWORD</a></td>
             </tr>
           </tbody>
         </Table>
