@@ -38,7 +38,7 @@ function LogedInNav(props) {
             </li>
             {menu}
           <li className="nav-item me-2">
-            <a className="nav-link text-danger" href="#signOut">Sign Out</a>
+            <a className="nav-link text-danger" href="#signOut" onClick={() => logout()}>Sign Out</a>
           </li>
         </ul>
       </div>
@@ -83,4 +83,9 @@ function LogedOutNav(props) {
       </div>
     </nav>
   );
+}
+
+function logout() {
+  localStorage.clear();
+  window.location.href = '/';
 }
