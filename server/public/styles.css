@@ -142,3 +142,7 @@ td {
 .clear {
   clear: both;
 }
+
+.availableAppt {
+  color: red;
+}

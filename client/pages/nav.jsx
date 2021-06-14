@@ -50,7 +50,7 @@ function RegisteredNavMenu(props) {
   return (
     <>
         <li className="nav-item me-5">
-          <a className="nav-link text-danger" href="#appointment">Appointment</a>
+          <a className="nav-link text-danger" href="#appointmentTable">Appointment</a>
         </li>
         <li className="nav-item dropdown me-5">
           <a className="nav-link dropdown-toggle text-danger" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">My Profile</a>

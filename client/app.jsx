@@ -8,7 +8,7 @@ import RegistrationForm from './pages/registrationForm';
 import CompleteIntakeForm from './pages/completeIntakeForm';
 import MyAccount from './pages/myAccount';
 import ChangePw from './pages/changePw';
-import Appointment from './pages/appointment';
+import AppointmentTable from './pages/appointmentTable';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -89,8 +89,8 @@ export default class App extends React.Component {
     if (route.path === 'changePw') {
       return <ChangePw userData={this.state.userData} />;
     }
-    if (route.path === 'appointment') {
-      return <Appointment userData={this.state.userData} />;
+    if (route.path === 'appointmentTable') {
+      return <AppointmentTable userData={this.state.userData} />;
     }
   }
 
