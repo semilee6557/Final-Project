@@ -283,6 +283,56 @@ app.get('/api/images/medicalRecord', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/appointment', (req, res, next) => {
+  const sql = `
+    select *
+      from "medicalRecord"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+
+});
+app.post('/api/appointment/create', (req, res, next) => {
+  const { time, userId, year, month, date } = req.body;
+  const sql = `
+    insert into "appointments" ("time", "userId", "year", "month", "date")
+    values ($1, $2, $3, $4, $5)
+    returning *;
+  `;
+  const params = [time, userId, year, month, date];
+  db.query(sql, params)
+    .then(result => {
+      const [data] = result.rows;
+      if (!data) {
+        throw new ClientError(401, 'data is missing');
+      }
+      res.json(data);
+    })
+    .catch(err => next(err));
+
+});
+
+app.post('/api/appointment/booked', (req, res, next) => {
+  const { month } = req.body;
+  const sql = `
+    select *
+    from "appointments"
+    where "month"=$1
+  `;
+
+  const params = [month];
+
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

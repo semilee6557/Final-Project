@@ -56,7 +56,7 @@ function RegisteredNavMenu(props) {
           <a className="nav-link dropdown-toggle text-danger" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">My Profile</a>
             <ul className="dropdown-menu ">
              <li><a className="dropdown-item text-danger" href="#myAccount">MY ACCOUNT</a></li>
-             <li><a className="dropdown-item text-danger" href="#">MY APPOINTMENT</a></li>
+             <li><a className="dropdown-item text-danger" href="#myAppointment">MY APPOINTMENT</a></li>
                 <ul className="dropdown-menu ">
                  <li><a className="dropdown-item text-danger" href="#myAccount">UPCOMMING APPT</a></li>
                  <li><a className="dropdown-item text-danger" href="#">WAITING LIST</a></li>

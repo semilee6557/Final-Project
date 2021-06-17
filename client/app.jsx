@@ -9,6 +9,7 @@ import CompleteIntakeForm from './pages/completeIntakeForm';
 import MyAccount from './pages/myAccount';
 import ChangePw from './pages/changePw';
 import AppointmentTable from './pages/appointmentTable';
+import MyAppointment from './pages/myAppointment';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -91,6 +92,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'appointmentTable') {
       return <AppointmentTable userData={this.state.userData} />;
+    }
+    if (route.path === 'myAppointment') {
+      return <MyAppointment userData={this.state.userData} />;
     }
   }
 

@@ -77,9 +77,10 @@ create table "payment" (
 
 create table "appointments" (
   "appointmentId" serial,
-  "date"          date            not null,
-  "startTime"     time(0)         not null,
-  "endTime"       time(0)         not null,
+  "year"          integer         not null,
+  "month"         integer         not null,
+  "date"          integer         not null,
+  "time"          text            not null,
   "userId"        integer         not null,
   "createdAt"     timestamptz(6)  not null default now(),
   primary key ("appointmentId"),

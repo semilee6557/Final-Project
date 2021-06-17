@@ -13,18 +13,34 @@ export default class AppointmentTable extends React.Component {
       firstDayIndex: 0,
       firstDay: null,
       lastDate: null,
-      openModal: false
+      openModal: false,
+      result: null,
+      table: null,
+      selectDayAttps: null
     };
     this.dayCallBack = this.dayCallBack.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.findDay = this.findDay.bind(this);
+    this.createTable = this.createTable.bind(this);
   }
 
   dayCallBack(event) {
     const selectedDate = parseInt(event.target.textContent);
     const selectedDay = this.findDay(selectedDate);
-    this.setState({ selectedDate, selectedDay, openModal: true });
 
+    const selectDayAttps = this.state.result[selectedDate - 1].time;
+
+    fetch('/api/appointment')
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    this.setState({ selectedDate, selectedDay, openModal: true, selectDayAttps });
   }
 
   findDay(date) {
@@ -40,7 +56,6 @@ export default class AppointmentTable extends React.Component {
 
   componentDidMount() {
     const today = new Date();
-    // const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const curMonth = today.getMonth();
     this.setState({ monthIndex: curMonth });
 
@@ -56,18 +71,56 @@ export default class AppointmentTable extends React.Component {
       startDateofWeek.push(1);
     }
 
-    // weekday.length - firstDayIndex;
-
     this.setState({ firstDayIndex, lastDate, firstDay });
+
+    const data = {
+      month: curMonth + 1
+    };
+
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    };
+
+    fetch('/api/appointment/booked', req)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(result => {
+        const bookedAppt = [];
+        let apptObj = {};
+        let time = [];
+        for (let i = 0; i < this.state.lastDate; i++) {
+          time = [];
+          apptObj = {};
+          for (let r = 0; r < result.length; r++) {
+            if (result[r].date === i + 1) {
+              time.push(result[r].time);
+            }
+
+          }
+          apptObj.date = i + 1;
+          apptObj.time = time;
+          bookedAppt.push(apptObj);
+        }
+        this.setState({ result: bookedAppt });
+        this.createTable();
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
-  render() {
+  createTable() {
+
     const weeks = [];
     let days = [];
-    const bookedAppts = [1, 6];
+    const bookedAppts = this.state.result;
     let bookedAppt = null;
     let message = '';
-
     let day = null;
 
     const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -79,54 +132,69 @@ export default class AppointmentTable extends React.Component {
         days.push(<td key={'blank' + i}><div></div><div className="availableAppt mt-1">{message}</div></td>);
       }
     }
+
     for (let i = 0; i < this.state.lastDate; i++) {
-      bookedAppt = bookedAppts[i];
+      for (let r = 0; r < bookedAppts.length; r++) {
+        if (bookedAppts[r].date === i + 1) {
+          bookedAppt = bookedAppts[r].time;
+        }
+      }
+
       selectedDayIndex = new Date(2021, this.state.monthIndex, i + 1).getDay();
       day = weekday[selectedDayIndex];
       if (day === 'Sunday' || day === 'Saturday') {
         message = '';
-      } else if (bookedAppt === 6) {
+      } else if (bookedAppt.length === 6) {
         message = '';
       } else {
-        message = 0 + '/6';
+        message = bookedAppt.length + '/3';
       }
 
       if (day === 'Monday') {
-        weeks.push(<tr>{days}</tr>);
+        weeks.push(<tr key={weeks.length + 'Monday'}>{days}</tr>);
         days = [];
       }
-      days.push(<td key={'blank' + i}><div>{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
+
+      if (day === 'Sunday' || day === 'Saturday') {
+        days.push(<td key={days.length + 'blank' + i}><div>{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
+      } else {
+        days.push(<td key={days.length + 'blank' + i}><div onClick={this.dayCallBack}>{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
+      }
     }
     if (days) {
-      weeks.push(<tr>{days}</tr>);
+      weeks.push(<tr key={weeks.length}>{days}</tr>);
     }
+    this.setState({ table: weeks });
+  }
 
+  render() {
+    const table = this.state.table;
     return (
     <>
       <Table className="calendar" id="calendar">
         <thead>
-          <tr>
+          <tr key="month">
             <th colSpan="6" className="text-center">
               <h1>
                 {this.state.monthIndex + 1}
                 </h1>
             </th>
           </tr>
-          <tr>
-            <th>Mo</th>
-            <th>Tu</th>
-            <th>We</th>
-            <th>Th</th>
-            <th>Fr</th>
-            <th>Sa</th>
-            <th>Su</th>
+          <tr key="day">
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thur</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
           </tr>
         </thead>
         <tbody>
-                {weeks}
+                {table}
         </tbody>
       </Table>
-      <AppointmentForm userData={this.state.userData} openModal={this.state.openModal} closeModal = {this.closeModal}/>
+      <AppointmentForm state={this.state} openModal={this.state.openModal} closeModal = {this.closeModal} />
     </>
     );
   }
