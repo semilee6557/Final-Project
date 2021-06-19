@@ -333,6 +333,41 @@ app.post('/api/appointment/booked', (req, res, next) => {
 
 });
 
+app.post('/api/appointment/myAppt', (req, res, next) => {
+  const { month, userId } = req.body;
+  const sql = `
+    select *
+    from "appointments"
+    where "month"=$1 AND "userId"=$2
+  `;
+
+  const params = [month, userId];
+
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+
+});
+app.delete('/api/appointment/delete/:userId', (req, res, next) => {
+  const { date, userId } = req.body;
+  const sql = `
+    delete from "appointments"
+     where "date" = $1 AND "userId" = $2
+    returning *;
+  `;
+
+  const params = [date, userId];
+
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
