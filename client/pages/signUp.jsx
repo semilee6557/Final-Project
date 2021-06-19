@@ -110,10 +110,14 @@ export default class SignUp extends React.Component {
           <div className="col-sm-10">
             <input type="name" name="name" value={value.name} placeholder="Name" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
           </div>
+          </div>
+        <div className="row mb-3">
           <label htmlFor="dob" className="col-sm-2 col-form-label">Date of Birth</label>
           <div className="col-sm-10">
             <input type="date" name="dob" value={value.dob} placeholder="Date of Birth" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
           </div>
+          </div>
+        <div className="row mb-3">
           <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
           <div className="col-sm-10">
             <input type="email" name="email" value={value.email} placeholder="Email" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
