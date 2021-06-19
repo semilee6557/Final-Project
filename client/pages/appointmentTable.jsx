@@ -19,6 +19,7 @@ export default class AppointmentTable extends React.Component {
       selectDayAttps: null
     };
     this.dayCallBack = this.dayCallBack.bind(this);
+    this.weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     this.closeModal = this.closeModal.bind(this);
     this.findDay = this.findDay.bind(this);
     this.createTable = this.createTable.bind(this);
@@ -44,9 +45,8 @@ export default class AppointmentTable extends React.Component {
   }
 
   findDay(date) {
-    const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const selectedDayIndex = new Date(2021, this.state.monthIndex, date).getDay();
-    const selectedDay = weekday[selectedDayIndex];
+    const selectedDay = this.weekday[selectedDayIndex];
     return selectedDay;
   }
 
