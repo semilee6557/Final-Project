@@ -57,12 +57,7 @@ function RegisteredNavMenu(props) {
             <ul className="dropdown-menu ">
              <li><a className="dropdown-item text-danger" href="#myAccount">MY ACCOUNT</a></li>
              <li><a className="dropdown-item text-danger" href="#myAppointment">MY APPOINTMENT</a></li>
-                <ul className="dropdown-menu ">
-                 <li><a className="dropdown-item text-danger" href="#myAccount">UPCOMMING APPT</a></li>
-                 <li><a className="dropdown-item text-danger" href="#">WAITING LIST</a></li>
-                 <li><a className="dropdown-item text-danger" href="#">PAST APPT</a></li>
-                </ul>
-             <li><a className="dropdown-item text-danger" href="#">MY DOCUMENT</a></li>
+             <li><a className="dropdown-item text-danger" href="#myDocument">MY DOCUMENT</a></li>
              <li><a className="dropdown-item text-danger" href="#">MY PAYMENT</a></li>
             </ul>
           </li>

@@ -10,6 +10,9 @@ import MyAccount from './pages/myAccount';
 import ChangePw from './pages/changePw';
 import AppointmentTable from './pages/appointmentTable';
 import MyAppointment from './pages/myAppointment';
+import MyRegistrationForm from './pages/myRegistrationForm';
+import MyDocument from './pages/myDocument';
+import Myfiles from './pages/myfiles';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -95,6 +98,15 @@ export default class App extends React.Component {
     }
     if (route.path === 'myAppointment') {
       return <MyAppointment userData={this.state.userData} />;
+    }
+    if (route.path === 'myDocument') {
+      return <MyDocument />;
+    }
+    if (route.path === 'myRegistrationForm') {
+      return <MyRegistrationForm userData={this.state.userData} />;
+    }
+    if (route.path === 'myfiles') {
+      return <Myfiles userData={this.state.userData} />;
     }
   }
 
