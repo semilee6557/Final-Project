@@ -368,6 +368,24 @@ app.delete('/api/appointment/delete/:userId', (req, res, next) => {
 
 });
 
+app.post('/api/myDoc/registrationFrom', (req, res, next) => {
+  const { userId } = req.body;
+  const sql = `
+    select *
+    from "intakeForm"
+    where "userId"=$1
+  `;
+
+  const params = [userId];
+
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
