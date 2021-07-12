@@ -12,7 +12,7 @@ function AccountInfo(props) {
   const userData = props.userData;
   return (
       <>
-      <div className="mt-5 d-flex flex-column align-items-center">
+      <div className="d-flex flex-column align-items-center">
         <div className='text-center p-5'>
           <h1>My Account</h1>
         </div>

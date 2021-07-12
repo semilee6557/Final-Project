@@ -20,7 +20,7 @@ export default class SignUp extends React.Component {
 
   handleChange(event) {
     const name = event.target.name;
-    const value = event.target.name === 'name' ? event.target.value.toLowerCase() : event.target.value;
+    const value = event.target.value;
 
     this.setState({
       [name]: value
@@ -63,7 +63,7 @@ export default class SignUp extends React.Component {
       return;
     } else {
       const newAccount = {
-        name: this.state.name,
+        name: this.state.name.toLowerCase(),
         dob: this.state.dob,
         email: this.state.email,
         password: this.state.password

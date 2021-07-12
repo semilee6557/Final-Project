@@ -17,13 +17,14 @@ export default class EmailSearch extends React.Component {
 
   onChange(event) {
     const name = event.target.name;
-    const value = name === 'name' ? event.target.value.toLowerCase() : event.target.value;
+    const value = event.target.value;
     this.setState({ [name]: value });
   }
 
   onSubmit(event) {
     event.preventDefault();
     const { result, ...data } = this.state;
+    data.name = data.name.toLowerCase();
     const req = {
       method: 'POST',
       headers: {

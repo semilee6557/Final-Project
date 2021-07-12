@@ -20,7 +20,7 @@ function LogedOutHome(props) {
           <h1>Manage your wellness</h1>
           <h1>Sign up for appointment</h1>
         </div>
-        <a href={'#signUp'} type="button" className="btn btn-danger">SIGN UP</a>
+        <a href='#signUp' type="button" className="btn btn-danger homeBtn">SIGN UP</a>
       </div>
       </>
   );
@@ -32,7 +32,7 @@ function LogedInHome(props) {
         <div className='text-center p-5'>
           <h1>Manage your wellness</h1>
         </div>
-        <a href={'#appointment'} type="button" className="btn btn-danger">Make Appointment</a>
+        <a href='#appointmentTable' type="button" className="btn btn-danger homeBtn">Make Appointment</a>
       </div>
       </>
   );
