@@ -37,9 +37,6 @@ function LogedInNav(props) {
           <span className="navbar-toggler-icon"></span>
         </button>
       <div className="navbar-collapse collapse" id="collapsingNavbarXs">
-        {/* <a className="navbar-brand" href="#welcomePage">
-          <img className="logo" src="images/logo.png" alt="logo"></img>
-        </a> */}
             {menu}
       </div>
     </nav>
