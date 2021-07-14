@@ -59,7 +59,8 @@ app.post('/api/auth/sign-in', (req, res, next) => {
   }
 
   const sql = `
-    select *
+    select *,
+      to_char("dob", 'MM/DD/YYYY') as "birthday"
       from "users"
      where "email" = $1
   `;
