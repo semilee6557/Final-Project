@@ -71,7 +71,7 @@ export default class SignUp extends React.Component {
       this.createAccount(newAccount);
       this.setState({ name: '', dob: null, email: '', password: '', confirmPassword: '', message: '' });
     }
-    window.location.hash = '#signIn';
+    window.location.hash = '#signUpSuccess';
 
   }
 
@@ -106,40 +106,40 @@ export default class SignUp extends React.Component {
       <form className="container border p-5" onSubmit={this.handleSubmit}>
         <h4 className="text-center mb-5">Sign Up</h4>
         <div className="row mb-3">
-          <label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
-          <div className="col-sm-10">
+          <label htmlFor="name" className="col-md-3 col-form-label">Name</label>
+          <div className="col-md">
             <input type="name" name="name" value={value.name} placeholder="Name" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
           </div>
-          </div>
+        </div>
         <div className="row mb-3">
-          <label htmlFor="dob" className="col-sm-2 col-form-label">Date of Birth</label>
-          <div className="col-sm-10">
+          <label htmlFor="dob" className="col-md-3 col-form-label">Date of Birth</label>
+          <div className="col-md">
             <input type="date" name="dob" value={value.dob} placeholder="Date of Birth" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
           </div>
-          </div>
+        </div>
         <div className="row mb-3">
-          <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
-          <div className="col-sm-10">
+          <label htmlFor="inputEmail3" className="col-md-3 col-form-label">Email</label>
+          <div className="col-md">
             <input type="email" name="email" value={value.email} placeholder="Email" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
           </div>
-          </div>
-        <div className="row mb-3">
-            <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Password</label>
-            <div className="col-sm-10">
+        </div>
+        <div className="row mb-1">
+            <label htmlFor="inputPassword3" className="col-md-3 col-form-label">Password</label>
+            <div className="col-md">
               <input type="password" name="password" value={value.password} placeholder="Password" className="form-control" id="inputPassword3" onChange={this.handleChange}></input>
-          </div>
-            <p className="help-block mt-2 ps-5">* Password should be at least 8 characters include a number, a lowercase, a uppercase, a special characters</p>
             </div>
+              <p className="help-block mt-2">* Password should be at least 8 characters include a number, a lowercase, a uppercase, a special characters</p>
+        </div>
         <div className="row mb-3">
-            <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Confirm Password</label>
-            <div className="col-sm-10">
+            <label htmlFor="inputPassword3" className="col-md-3 col-form-label">Confirm Password</label>
+            <div className="col-md">
               <input type="password" name="confirmPassword" value={value.confirmPassword} placeholder="Confirm Password" className="form-control" id="inputPassword3" onChange={this.handleChange}></input>
-          </div>
             </div>
-        <div className="row">
-        <button type="submit" className="btn btn-primary col-2 offset-5">Submit</button>
-        <div className="help-block mt-2 ps-5"> {message}</div>
-        <div className="help-block mt-2 ps-5"> {errorMessage}</div>
+        </div>
+        <div className="row justify-content-center mt-5 mt-md-1">
+          <button type="submit" className="btn btn-primary col-md-4">Submit</button>
+          <div className="help-block mt-2"> {message}</div>
+          <div className="help-block mt-2"> {errorMessage}</div>
         </div>
       </form>
     </>

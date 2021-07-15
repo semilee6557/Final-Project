@@ -141,28 +141,28 @@ export default class ChangePw extends React.Component {
       <form className="container border p-5" onSubmit={this.handleSubmit}>
         <h4 className="text-center mb-5">Change Password</h4>
         <div className="row mb-3">
-          <label htmlFor="current" className="col-sm-2 col-form-label">Current Password</label>
-          <div className="col-sm-10">
+          <label htmlFor="current" className="col-md-4 col-form-label">Current Password</label>
+          <div className="col-md">
             <input type="password" name="current" value={value.current} placeholder="Current Password" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
           </div>
         </div>
         <div className="row mb-3">
-            <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">New Password</label>
-            <div className="col-sm-10">
+            <label htmlFor="inputPassword3" className="col-md-4 col-form-label">New Password</label>
+            <div className="col-md">
               <input type="password" name="password" value={value.password} placeholder="Password" className="form-control" id="inputPassword3" onChange={this.handleChange}></input>
             </div>
-            <p className="help-block mt-2 ps-5">* Password should be at least 8 characters include a number, a lowercase, a uppercase, a special characters</p>
+            <p className="help-block mt-2">* Password should be at least 8 characters include a number, a lowercase, a uppercase, a special characters</p>
         </div>
         <div className="row mb-3">
-            <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Confirm Password</label>
-            <div className="col-sm-10">
+            <label htmlFor="inputPassword3" className="col-md-4 col-form-label">Confirm Password</label>
+            <div className="col-md">
               <input type="password" name="confirmPassword" value={value.confirmPassword} placeholder="Confirm Password" className="form-control" id="inputPassword3" onChange={this.handleChange}></input>
             </div>
         </div>
-        <div className="row">
-        <button type="submit" className="btn btn-primary col-2 offset-5">Submit</button>
-        <div className="help-block mt-2 ps-5"> {message}</div>
-        <div className="help-block mt-2 ps-5"> {errorMessage}</div>
+        <div className="row justify-content-center mt-5">
+          <button type="submit" className="btn btn-primary col-md-4">Submit</button>
+          <div className="help-block mt-2"> {message}</div>
+          <div className="help-block mt-2"> {errorMessage}</div>
         </div>
       </form>
 
