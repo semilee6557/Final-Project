@@ -20,6 +20,7 @@ export default class MyAppointment extends React.Component {
     };
     this.dayCallBack = this.dayCallBack.bind(this);
     this.weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    this.month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.closeModal = this.closeModal.bind(this);
     this.findDay = this.findDay.bind(this);
     this.createTable = this.createTable.bind(this);
@@ -67,7 +68,7 @@ export default class MyAppointment extends React.Component {
   }
 
   dayCallBack(event) {
-    const selectedDate = parseInt(event.target.textContent);
+    const selectedDate = parseInt(event.target.previousSibling.textContent);
     const selectedDay = this.findDay(selectedDate);
 
     const selectDayAttps = this.state.result[selectedDate - 1].time;
@@ -140,7 +141,6 @@ export default class MyAppointment extends React.Component {
         days.push(<td key={'blank' + i}><div></div><div className="availableAppt mt-1">{message}</div></td>);
       }
     }
-
     for (let i = 0; i < this.state.lastDate; i++) {
       for (let r = 0; r < bookedAppts.length; r++) {
         if (bookedAppts[r].date === i + 1) {
@@ -168,7 +168,7 @@ export default class MyAppointment extends React.Component {
       } else if (!bookedAppt) {
         days.push(<td key={days.length + 'blank' + i}><div>{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
       } else {
-        days.push(<td key={days.length + 'blank' + i}><div onClick={this.dayCallBack}>{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
+        days.push(<td key={days.length + 'blank' + i}><div>{i + 1}</div><div onClick={this.dayCallBack} className="availableAppt mt-1 clickable">{message}</div></td>);
       }
     }
     if (days) {
@@ -179,6 +179,7 @@ export default class MyAppointment extends React.Component {
 
   render() {
     const table = this.state.table;
+    const thisMonth = this.month[this.state.monthIndex];
     return (
     <>
       <h1>My Appointment</h1>
@@ -187,8 +188,8 @@ export default class MyAppointment extends React.Component {
           <tr key="month">
             <th colSpan="6" className="text-center">
               <h1>
-                {this.state.monthIndex + 1}
-                </h1>
+                {thisMonth}
+              </h1>
             </th>
           </tr>
           <tr key="day">

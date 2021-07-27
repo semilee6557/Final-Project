@@ -55,7 +55,7 @@ function RegisteredNavMenu(props) {
             </li>
             <li className="nav-item dropdown me-5">
               <a className="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">My Profile</a>
-                <ul className="dropdown-menu bg-primary">
+                <ul className="dropdown-menu dropdown-menu-dark bg-primary">
                  <li><a className="dropdown-item text-light" href="#myAccount">MY ACCOUNT</a></li>
                  <li><a className="dropdown-item text-light" href="#myAppointment">MY APPOINTMENT</a></li>
                  <li><a className="dropdown-item text-light" href="#myDocument">MY DOCUMENT</a></li>
