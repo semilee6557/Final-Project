@@ -2,6 +2,10 @@
 
 A full stack JavaScript application that allow users to manage their appoitment.
 
+Demo user information
+Email: demouser@gmail.com
+PW: Demo1234!!!
+
 ## Feature
 
 - User can create personal account.	
