@@ -86,7 +86,7 @@ export default class AppointmentForm extends React.Component {
       if (bookedtimes.length === 3) {
         table.push(
             <div className="row align-items-center mb-2" key="header">
-              <div className="col justify-content-center text-center">No available time. Please choose other date</div>
+              <div className="col text-center">No available time. Please choose other date</div>
             </div>
         );
 
@@ -97,8 +97,9 @@ export default class AppointmentForm extends React.Component {
         table.push(
           <div key={'time' + i}>
             <div className="row align-items-center mb-2" key={availableTimes[i]}>
-             <div className="col justify-content-center text-center">{availableTimes[i]}</div>
-             <button onClick={this.onClick} name={availableTimes[i]} className="col btn btn-primary col-4">Select</button>
+             <div className="col justify-content-center text-center">{availableTimes[i]}
+              <button onClick={this.onClick} name={availableTimes[i]} className="btn btn-primary col-auto ms-3">Select</button>
+             </div>
             </div>
           </div>
         );

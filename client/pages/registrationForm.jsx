@@ -173,33 +173,34 @@ function FirstPage(props) {
 
   return (
     <>
-      <form className="border p-5 m-5 needs-validation" onSubmit={ onSubmit } >
+      <h3 className="text-center mb-3 mb-md-5">Registration Form</h3>
+      <form className="border p-3 p-md-5 needs-validation" onSubmit={ onSubmit } >
         <div className="row mb-3">
-          <div className="col-6">
-            <div className="row mb-3">
-            <label htmlFor="firstName" className="col-sm-4 col-form-label">First name</label>
-            <div className="col-9">
-            <input type="text" value={firstName} onChange={onChange} name="firstName" className="form-control" id="firstName" placeholder="First name" required/>
-            <div className="invalid-feedback">
-               Please provide your first name.
-           </div>
-            </div>
-            </div>
+          <div className="col-md-6">
+              <div className="row mb-3">
+                <label htmlFor="firstName" className="col-form-label">First name</label>
+                <div className="col-md-12">
+                   <input type="text" value={firstName} onChange={onChange} name="firstName" className="form-control" id="firstName" placeholder="First name" required/>
+                   <div className="invalid-feedback">
+                    Please provide your first name.
+                   </div>
+               </div>
+              </div>
           </div>
-          <div className="col-6">
-            <div className="row mb-3">
-            <label htmlFor="lastName" className="col-sm-4 col-form-label">Last name</label>
-            <div className="col-9">
-            <input type="text" className="form-control" id="lastName" name="lastName" onChange={onChange} value={lastName} placeholder="Last name" required />
-              <div className="invalid-feedback">
-                Please provide your last name.
+          <div className="col-md-6">
+             <div className="row mb-3">
+                 <label htmlFor="lastName" className="col-form-label">Last name</label>
+                 <div className="col-md-12">
+                   <input type="text" className="form-control" id="lastName" name="lastName" onChange={onChange} value={lastName} placeholder="Last name" required />
+                   <div className="invalid-feedback">
+                     Please provide your last name.
+                   </div>
+                </div>
              </div>
-            </div>
-            </div>
           </div>
           </div>
         <div className="row mb-3">
-          <div className="col">
+          <div className="col-md mb-3">
             <label htmlFor="address" className="col col-form-label" >Address</label>
             <input type="text" className="form-control" id="address" name="address" onChange={onChange} value={address} placeholder="Street address or P.O. Box include Apt, suite, unit etc" required/>
             <div className="invalid-feedback">
@@ -208,7 +209,7 @@ function FirstPage(props) {
           </div>
         </div>
         <div className="row mb-3">
-          <div className="col">
+          <div className="col-md mb-3">
             <label htmlFor="firstName" className="form-label">City</label>
             <input type="text" className="form-control" id="firstName" name="city" onChange={onChange} value={city} placeholder="City" required />
               <div className="invalid-feedback">
@@ -216,7 +217,7 @@ function FirstPage(props) {
              </div>
 
           </div>
-          <div className="col">
+          <div className="col-md mb-3">
             <label htmlFor="lastName" className="form-label">State</label>
             <input type="text" className="form-control" id="lastName" name="state" onChange={onChange} value={state} placeholder="State" required />
               <div className="invalid-feedback">
@@ -234,8 +235,8 @@ function FirstPage(props) {
           </div>
         </div>
       <div className="row mb-3">
-        <label htmlFor="date" className="col-sm-2 col-form-label">Date of Birth</label>
-        <div className="col-3">
+        <label htmlFor="date" className="col col-form-label">Date of Birth</label>
+        <div className="col-md-6">
           <input type="date" className="form-control" id="dateOfBirth" name="dateOfBirth" onChange={onChange} value={dateOfBirth} required />
               <div className="invalid-feedback">
                Please provide your date of birth.
@@ -244,20 +245,20 @@ function FirstPage(props) {
         </div>
       </div>
       <div className="mb-3">
-        <label htmlFor="floatingTextarea" className="form-label">Past Medical History</label>
+        <label htmlFor="floatingTextarea" className="form-label">Past Medical History (Optional)</label>
         <textarea className="form-control" id="floatingTextarea" name="pastMedicalHistory" onChange={onChange} value={pastMedicalHistory} placeholder="Past Medical History" ></textarea>
       </div>
       <div className="mb-3">
-        <label htmlFor="floatingTextarea" className="form-label">Family History</label>
+        <label htmlFor="floatingTextarea" className="form-label">Family History (Optional)</label>
         <textarea className="form-control" id="floatingTextarea" name="familyHistory" onChange={onChange} value={familyHistory} placeholder="Family History" ></textarea>
       </div>
       <div className="mb-3">
         <label htmlFor="floatingTextarea" className="form-label">Chief Complain</label>
         <textarea className="form-control" id="floatingTextarea" name="chiefComplain" onChange={onChange} value={chiefComplain} placeholder="Chief Complain" required ></textarea>
       </div>
-        <div className="d-grid gap-2 d-md-flex justify-content-md-between">
-          <button className="btn btn-primary me-md-2" type="button" name="cancelBtn" onClick={onClick}>Cancel</button>
-          <button type="submit" className="btn btn-primary">Next</button>
+        <div className="row m-1 justify-content-between">
+          <button className="col col-md-4 btn btn-primary me-md-2" type="button" name="cancelBtn" onClick={onClick}>Cancel</button>
+          <button type="submit" className="col col-md-4 ms-5 btn btn-primary">Next</button>
         </div>
       </form>
     </>
@@ -281,14 +282,13 @@ function SecondPage(props) {
 
   return (
     <>
-       <form className="border p-5 m-5" onSubmit={ onSubmit }>
-
-          <div className="row">
-            <div className="col">
-              <div>
+      <h3 className="text-center mb-3 mb-md-5">Registration Form</h3>
+      <form className="border p-3 p-md-5" onSubmit={ onSubmit }>
+          <div className="row mb-3">
+              <div className="col-6 col-md-auto">
               Insurance Card
               </div>
-              <button type="button" onClick={() => handleInsuranceShow(true)} name="insuranceCardBtn" className="btn btn-secondary btn-sm"> Add File</button>
+              <button type="button" onClick={() => handleInsuranceShow(true)} name="insuranceCardBtn" className="btn btn-secondary btn-sm col-4 col-md-auto"> Add File</button>
               <table className="table">
               <thead className="table-Secondary">
               <tr>
@@ -305,14 +305,12 @@ function SecondPage(props) {
               </tbody>
             </table>
            </div>
-          </div>
 
-          <div className="row">
-            <div className="col">
-              <div>
-              Medical Record
+          <div className="row mb-3">
+              <div className="col-6 col-md-auto">
+              Medical Record (Optional)
               </div>
-              <button type="button" onClick={() => handleMedicalRecordShow(true)} name="medicalRecordBtn" className="btn btn-secondary btn-sm"> Add File</button>
+              <button type="button" onClick={() => handleMedicalRecordShow(true)} name="medicalRecordBtn" className="btn btn-secondary btn-sm col-4 col-md-auto"> Add File</button>
               <table className="table">
               <thead className="table-Secondary">
               <tr>
@@ -329,38 +327,36 @@ function SecondPage(props) {
               </tbody>
             </table>
            </div>
-          </div>
 
-          <div className="mb-3">
-            <label htmlFor="comment" className="form-label">Other comments regarding your health condition</label>
+          <div className="row mb-3">
+            <label htmlFor="comment" className="form-label">Other comments regarding your health condition (Optional)</label>
              <textarea className="form-control" id="floatingTextarea" name="comment" onChange={onChange} value={comment} placeholder="Other comments regarding your health condition" ></textarea>
           </div>
-          <div className="mb-3 text-center">
+          <div className="row mb-3 text-center">
             <span>“I certify under perjury the information I provided is true and correct. By checking below, I acknowledge full disclosure if my health condition.”</span>
            </div>
 
-          <div className="mb-3 row">
-             <div className="col-6">
+          <div className="row mb-3">
+             <div className="col">
                <label className="list-group-item">
-               <input className="form-check-input me-1" type="checkbox" name = "agreed" checked={agreed} onChange={onChange} required />
-               <div className="invalid-feedback">
+                <input className="form-check-input me-1" type="checkbox" name = "agreed" checked={agreed} onChange={onChange} required />
+                <div className="invalid-feedback">
                   You must agree before submitting.
-               </div>
-
+                </div>
                 I agree
                </label>
-            <div className="col">
-               <label htmlFor="address" className="col col-form-label" >Name</label>
+             </div>
+          </div>
+            <div className="col mb-3">
+               <label htmlFor="address" className="col col-form-label">Name</label>
                <input type="text" className="form-control" id="Name" name = "fullName" onChange={onChange} value={fullName} placeholder="Print Name" required />
                 {row}
             </div>
-          </div>
-        </div>
          <div className="help-block mt-2 ps-5"> {errorMessage}</div>
 
-        <div className="d-grid gap-2 d-md-flex justify-content-md-between mb-3">
-            <button type="button" name="previousBtn" className="btn btn-primary" onClick={onClick}>Previous</button>
-            <button type="submit" className="btn btn-primary">Submit</button>
+        <div className="row m-1 justify-content-between">
+            <button type="button" name="previousBtn" className="col col-md-4 btn btn-primary me-md-2" onClick={onClick}>Previous</button>
+            <button type="submit" className="col col-md-4 ms-5 btn btn-primary">Submit</button>
         </div>
         </form>
 

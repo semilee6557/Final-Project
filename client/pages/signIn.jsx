@@ -86,26 +86,26 @@ export default class SignIn extends React.Component {
        <form className="container border p-5" onSubmit={this.handleSubmit}>
         <h4 className="text-center mb-5">Sign In</h4>
         <div className="row mb-3">
-          <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
-          <div className="col-sm-10">
+          <label htmlFor="inputEmail3" className="col-md-3 col-form-label">Email</label>
+          <div className="col-md">
             <input type="email" className="form-control" id="inputEmail3" name="email" value={value.email} placeholder="Email" onChange={this.handleChange}></input>
           </div>
           </div>
         <div className="row mb-3">
-            <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Password</label>
-            <div className="col-sm-10">
+            <label htmlFor="inputPassword3" className="col-md-3 col-form-label">Password</label>
+            <div className="col-md">
               <input type="password" className="form-control" id="inputPassword3" name="password" value={value.password} placeholder="Password" onChange={this.handleChange}></input>
           </div>
             </div>
         <div className="row mb-3">
-          <p className="help-block" onClick={() => this.openModal('id')}>forget your email?</p>
+          <p className="help-block" onClick={() => this.openModal('id')}>forgot your email?</p>
         </div>
-        <div className="row">
-        <button type="submit" className="btn btn-primary col-3 offset-5">Sign In</button>
+        <div className="row justify-content-center">
+          <button type="submit" className="btn btn-primary col-md-4">Sign In</button>
+          <a href="#signUp" className="text-center">Create new account</a>
         </div>
-                <div className="row mb-3">
-          <a href="#signUp" className="col-4 offset-5">Create new account</a>
-        </div>
+        {/* <div className="row mb-3">
+        </div> */}
 
       </form>
       <Modal show={this.state.visible} target = "error">

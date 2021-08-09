@@ -20,6 +20,7 @@ export default class AppointmentTable extends React.Component {
     };
     this.dayCallBack = this.dayCallBack.bind(this);
     this.weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    this.month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.closeModal = this.closeModal.bind(this);
     this.findDay = this.findDay.bind(this);
     this.createTable = this.createTable.bind(this);
@@ -158,7 +159,7 @@ export default class AppointmentTable extends React.Component {
       if (day === 'Sunday' || day === 'Saturday') {
         days.push(<td key={days.length + 'blank' + i}><div>{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
       } else {
-        days.push(<td key={days.length + 'blank' + i}><div onClick={this.dayCallBack}>{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
+        days.push(<td key={days.length + 'blank' + i}><div onClick={this.dayCallBack} className="clickable">{i + 1}</div><div className="availableAppt mt-1">{message}</div></td>);
       }
     }
     if (days) {
@@ -169,6 +170,8 @@ export default class AppointmentTable extends React.Component {
 
   render() {
     const table = this.state.table;
+    const thisMonth = this.month[this.state.monthIndex];
+
     return (
     <>
       <Table className="calendar" id="calendar">
@@ -176,8 +179,8 @@ export default class AppointmentTable extends React.Component {
           <tr key="month">
             <th colSpan="6" className="text-center">
               <h1>
-                {this.state.monthIndex + 1}
-                </h1>
+                {thisMonth}
+              </h1>
             </th>
           </tr>
           <tr key="day">

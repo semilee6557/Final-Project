@@ -13,6 +13,7 @@ import MyAppointment from './pages/myAppointment';
 import MyRegistrationForm from './pages/myRegistrationForm';
 import MyDocument from './pages/myDocument';
 import Myfiles from './pages/myfiles';
+import SignUpSuccess from './pages/signUpSuccess';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -108,14 +109,17 @@ export default class App extends React.Component {
     if (route.path === 'myfiles') {
       return <Myfiles userData={this.state.userData} />;
     }
+    if (route.path === 'signUpSuccess') {
+      return <SignUpSuccess />;
+    }
   }
 
   render() {
     return (
     <>
      <Nav isLogedIn={this.state.isLogedIn} finishedRegistrationForm ={this.state.finishedRegistrationForm}/>
-     <div className="container mt-5">
-       <div className="row justify-content-md-center">
+     <div className="container container-md-fluid mt-3 mt-md-5">
+       <div className="row justify-content-center">
         { this.renderPage() }
        </div>
      </div>
