@@ -2,6 +2,10 @@
 
 A full stack JavaScript application that allow users to manage their appoitment.
 
+Click appointment-app.herokuapp.com  link for try!
+if you wish skip sign-up step you can click here!
+
+
 Demo user information
 Email: demouser@gmail.com
 PW: Demo1234!!!
