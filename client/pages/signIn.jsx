@@ -79,6 +79,16 @@ export default class SignIn extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.demoInfo) {
+      this.setState({
+        email: this.props.demoInfo.email,
+        password: this.props.demoInfo.password
+      });
+    }
+
+  }
+
   render() {
     const value = this.state;
     return (

@@ -23,7 +23,8 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       isLogedIn: false,
       finishedRegistrationForm: false,
-      userData: null
+      userData: null,
+      demoInfo: { email: 'demouser@gmail.com', password: 'Demo1234!!!' }
     };
     this.userInfo = this.userInfo.bind(this);
     this.registrationformStatus = this.registrationformStatus.bind(this);
@@ -75,6 +76,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'signIn') {
       return <SignIn userInfo={this.userInfo} registrationformStatus={this.registrationformStatus} finishedRegistrationForm={this.finishedRegistrationForm} />;
+    }
+    if (route.path === 'signInDemo') {
+      return <SignIn userInfo={this.userInfo} registrationformStatus={this.registrationformStatus} finishedRegistrationForm={this.finishedRegistrationForm} demoInfo={this.state.demoInfo} />;
     }
     if (route.path === 'signUp') {
       return <SignUp />;
