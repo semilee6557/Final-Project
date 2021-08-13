@@ -2,8 +2,9 @@
 
 A full stack JavaScript application that allow users to manage their appoitment.
 
-Click appointment-app.herokuapp.com  link for try!
-if you wish skip sign-up step you can click here!
+Click [here](https://appointment-app.herokuapp.com/) for try!
+
+if you wish skip sign-up step you can click [here](https://appointment-app.herokuapp.com/#signInDemo)!
 
 
 Demo user information
