@@ -135,12 +135,15 @@ export default class MyAppointment extends React.Component {
 
     let selectedDayIndex = null;
 
+    // adding blank days before the day that 1st date of the month in first week
+
     if (this.state.firstDay !== 'Monday') {
-      for (let i = 1; i < this.state.firstDayIndex; i++) {
+      for (let i = 1; i < 7; i++) {
         message = '';
         days.push(<td key={'blank' + i}><div></div><div className="availableAppt mt-1">{message}</div></td>);
       }
     }
+
     for (let i = 0; i < this.state.lastDate; i++) {
       for (let r = 0; r < bookedAppts.length; r++) {
         if (bookedAppts[r].date === i + 1) {
@@ -159,7 +162,7 @@ export default class MyAppointment extends React.Component {
       }
 
       if (day === 'Monday') {
-        weeks.push(<tr key={weeks.length + 'Monday'}>{days}</tr>);
+        weeks.push(<tr className="tableRow" key={weeks.length + 'Monday'}>{days}</tr>);
         days = [];
       }
 
@@ -172,7 +175,7 @@ export default class MyAppointment extends React.Component {
       }
     }
     if (days) {
-      weeks.push(<tr key={weeks.length}>{days}</tr>);
+      weeks.push(<tr className="tableRow" key={weeks.length}>{days}</tr>);
     }
     this.setState({ table: weeks });
   }
@@ -182,8 +185,8 @@ export default class MyAppointment extends React.Component {
     const thisMonth = this.month[this.state.monthIndex];
     return (
     <>
-      <h1>My Appointment</h1>
-      <Table className="calendar" id="calendar">
+      <h2>My Appointment</h2>
+      <Table className="calendar mt-3" id="calendar">
         <thead>
           <tr key="month">
             <th colSpan="6" className="text-center">

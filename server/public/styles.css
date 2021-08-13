@@ -162,3 +162,7 @@ td {
 .clickable {
   cursor: pointer;
 }
+
+.tableRow {
+  height: 80px;
+}
