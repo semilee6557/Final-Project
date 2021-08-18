@@ -35,7 +35,6 @@ export default class SignIn extends React.Component {
         } else {
           this.openModal('error');
         }
-
       })
       .then(result => {
         this.props.userInfo(result.user);
