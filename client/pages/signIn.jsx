@@ -39,6 +39,8 @@ export default class SignIn extends React.Component {
       })
       .then(result => {
         this.props.userInfo(result.user);
+      })
+      .then(result => {
         this.props.registrationformStatus();
         event.target.reset();
       })
