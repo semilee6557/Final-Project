@@ -35,12 +35,10 @@ export default class SignIn extends React.Component {
         } else {
           this.openModal('error');
         }
-
       })
       .then(result => {
-        this.props.userInfo(result.user);
-        this.props.registrationformStatus();
-        event.target.reset();
+        this.props.userInfo(result.user, this.props.registrationformStatus);
+        // No need to reset form, because you are redirecting to a new page anyways
       })
       .catch(err => {
         console.error(err);

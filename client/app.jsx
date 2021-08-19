@@ -30,8 +30,17 @@ export default class App extends React.Component {
     this.registrationformStatus = this.registrationformStatus.bind(this);
   }
 
-  userInfo(userData) {
-    this.setState({ userData, isLogedIn: true });
+  userInfo(userData, callback = null) {
+    const newState = { userData, isLogedIn: true };
+
+    if (typeof callback === 'function') {
+      // If you pass setState a 2nd argument that is a function it will
+      // call that function after state has updated. So in sign in we can pass
+      // in registrationFormStatus and it won't get called until state has finished updating
+      return this.setState(newState, callback);
+    }
+
+    this.setState(newState);
   }
 
   registrationformStatus() {
