@@ -199,7 +199,7 @@ app.post('/api/intakeForm/search', (req, res, next) => {
     .then(result => {
       const [data] = result.rows;
       if (!data) {
-        throw new ClientError(401, 'data is missing');
+        return res.sendStatus(204);
       }
       res.json(data);
     })
