@@ -34,9 +34,6 @@ export default class App extends React.Component {
     const newState = { userData, isLogedIn: true };
 
     if (typeof callback === 'function') {
-      // If you pass setState a 2nd argument that is a function it will
-      // call that function after state has updated. So in sign in we can pass
-      // in registrationFormStatus and it won't get called until state has finished updating
       return this.setState(newState, callback);
     }
 
@@ -52,7 +49,7 @@ export default class App extends React.Component {
     };
     fetch('/api/intakeForm/search', req)
       .then(res => {
-        if (res.ok) {
+        if (res.status !== 204 && res.ok) {
           return res.json();
         }
       })
