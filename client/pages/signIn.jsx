@@ -111,8 +111,6 @@ export default class SignIn extends React.Component {
           <button type="submit" className="btn btn-primary col-md-4">Sign In</button>
           <a href="#signUp" className="text-center">Create new account</a>
         </div>
-        {/* <div className="row mb-3">
-        </div> */}
 
       </form>
       <Modal show={this.state.visible} target = "error">

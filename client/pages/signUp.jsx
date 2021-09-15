@@ -4,7 +4,8 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      firstName: '',
+      lastName: '',
       dob: null,
       email: '',
       password: '',
@@ -37,39 +38,40 @@ export default class SignUp extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let message = '';
-    if (!this.state.name) {
+    if (!this.state.firstName || !this.state.lastName) {
       message = 'Name is reqired.';
       this.setState({ message: message });
-      return;
+
     } else if (!this.state.dob) {
       message = 'Date of birth is required';
       this.setState({ message: message });
-      return;
+
     } else if (!this.state.password && !this.state.regexMessage) {
       message = 'A password is reqired.';
       this.setState({ message: message });
-      return;
+
     } else if (!this.state.password) {
       message = this.state.regexMessage;
       this.setState({ message: message });
-      return;
+
     } else if (this.state.password.length < 7) {
       message = 'Your password is too short.';
       this.setState({ message: message });
-      return;
+
     } else if (this.state.password !== this.state.confirmPassword) {
       message = 'Your password is not matching. Try again.';
       this.setState({ message: message });
-      return;
+
     } else {
       const newAccount = {
-        name: this.state.name.toLowerCase(),
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
         dob: this.state.dob,
         email: this.state.email,
         password: this.state.password
       };
       this.createAccount(newAccount);
-      this.setState({ name: '', dob: null, email: '', password: '', confirmPassword: '', message: '' });
+      this.setState({ firstName: '', lastName: '', dob: null, email: '', password: '', confirmPassword: '', message: '' });
     }
     window.location.hash = '#signUpSuccess';
 
@@ -106,9 +108,15 @@ export default class SignUp extends React.Component {
       <form className="container border p-5" onSubmit={this.handleSubmit}>
         <h4 className="text-center mb-5">Sign Up</h4>
         <div className="row mb-3">
-          <label htmlFor="name" className="col-md-3 col-form-label">Name</label>
+          <label htmlFor="firstName" className="col-md-3 col-form-label">First Name</label>
           <div className="col-md">
-            <input type="name" name="name" value={value.name} placeholder="Name" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
+            <input type="firstName" name="firstName" value={value.firstName} placeholder="First Name" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
+          </div>
+        </div>
+        <div className="row mb-3">
+          <label htmlFor="lastName" className="col-md-3 col-form-label">Last Name</label>
+          <div className="col-md">
+            <input type="lastName" name="lastName" value={value.lastName} placeholder="Last Name" className="form-control" id="inputEmail3" onChange={this.handleChange}></input>
           </div>
         </div>
         <div className="row mb-3">

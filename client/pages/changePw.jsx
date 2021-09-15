@@ -69,8 +69,6 @@ export default class ChangePw extends React.Component {
     } else {
       this.updatePassword();
     }
-    // window.location.hash = '';
-
   }
 
   updatePassword() {

@@ -93,7 +93,7 @@ export default class App extends React.Component {
       return <WelcomePage />;
     }
     if (route.path === 'registrationForm') {
-      return <RegistrationForm registrationformStatus={this.registrationformStatus} userData={this.state.userData} />;
+      return <RegistrationForm registrationformStatus={this.registrationformStatus} userData={this.state.userData} changeUserData={this.changeUserData}/>;
     }
     if (route.path === 'completeIntakeForm') {
       return <CompleteIntakeForm />;

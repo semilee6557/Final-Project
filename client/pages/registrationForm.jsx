@@ -27,7 +27,8 @@ export default class RegistrationForm extends React.Component {
       insuranceCardUpdate: false,
       medicalRecordUpdate: false,
       insuranceCardOriginalName: [],
-      medicalRecordOriginalName: []
+      medicalRecordOriginalName: [],
+      result: false
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -39,7 +40,7 @@ export default class RegistrationForm extends React.Component {
 
   onChange(event) {
     const name = event.target.name;
-    const value = event.target.type === 'checkbox' ? !this.state[name] : event.target.value.toLowerCase();
+    const value = event.target.type === 'checkbox' ? !this.state[name] : event.target.value;
     this.setState({
       [name]: value
     });
@@ -107,18 +108,25 @@ export default class RegistrationForm extends React.Component {
     fetch('/api/intakeForms', req)
       .then(res => res.json())
       .then(result => {
-        this.props.registrationformStatus();
-        this.setState({ isCompletedForm: true });
+        this.setState({ result: true });
         event.target.reset();
       })
       .catch(error => {
         console.error('Error', error);
       });
-    window.location.hash = '#completeIntakeForm';
+  }
+
+  componentDidMount() {
+    const userData = this.props.userData;
+    this.setState({
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      dateOfBirth: userData.birthday
+    });
   }
 
   render() {
-    const { currentForm, firstName, lastName, address, city, state, zip, dateOfBirth, pastMedicalHistory, familyHistory, chiefComplain, comment, agreed, fullName, errorMessage, insuranceCardOriginalName, medicalRecordOriginalName } = this.state;
+    const { currentForm, firstName, lastName, address, city, state, zip, dateOfBirth, pastMedicalHistory, familyHistory, chiefComplain, comment, agreed, fullName, errorMessage, insuranceCardOriginalName, medicalRecordOriginalName, result } = this.state;
 
     if (currentForm === 1) {
       return (
@@ -156,7 +164,9 @@ export default class RegistrationForm extends React.Component {
           updateMedicalRecordOriginalName = {this.updateMedicalRecordOriginalName}
           insuranceCardOriginalName = {insuranceCardOriginalName}
           medicalRecordOriginalName = {medicalRecordOriginalName}
-        />
+          result = {result}
+          registrationformStatus = {this.props.registrationformStatus}
+          />
       );
     }
 
@@ -210,24 +220,24 @@ function FirstPage(props) {
         </div>
         <div className="row mb-3">
           <div className="col-md mb-3">
-            <label htmlFor="firstName" className="form-label">City</label>
-            <input type="text" className="form-control" id="firstName" name="city" onChange={onChange} value={city} placeholder="City" required />
+            <label htmlFor="city" className="form-label">City</label>
+            <input type="text" className="form-control" id="city" name="city" onChange={onChange} value={city} placeholder="City" required />
               <div className="invalid-feedback">
                Please provide a vaild city.
              </div>
 
           </div>
           <div className="col-md mb-3">
-            <label htmlFor="lastName" className="form-label">State</label>
-            <input type="text" className="form-control" id="lastName" name="state" onChange={onChange} value={state} placeholder="State" required />
+            <label htmlFor="State" className="form-label">State</label>
+            <input type="text" className="form-control" id="State" name="state" onChange={onChange} value={state} placeholder="State" required />
               <div className="invalid-feedback">
                Please provide a vaild state.
              </div>
 
           </div>
           <div className="col">
-            <label htmlFor="lastName" className="form-label">Zip</label>
-            <input type="text" className="form-control" id="lastName" name="zip" onChange={onChange} value={zip} placeholder="Zip" required />
+            <label htmlFor="zip" className="form-label">Zip</label>
+            <input type="number" className="form-control" id="zip" name="zip" onChange={onChange} value={zip} placeholder="Zip" required />
               <div className="invalid-feedback">
                Please provide a vaild zip code.
              </div>
@@ -266,7 +276,7 @@ function FirstPage(props) {
 }
 
 function SecondPage(props) {
-  const { comment, agreed, fullName, onChange, onSubmit, onClick, firstName, lastName, errorMessage, userId, insuranceCardOriginalName, medicalRecordOriginalName } = props;
+  const { comment, agreed, fullName, onChange, onSubmit, onClick, firstName, lastName, errorMessage, userId, insuranceCardOriginalName, medicalRecordOriginalName, result, registrationformStatus } = props;
   const name = firstName + ' ' + lastName;
   let row = null;
   if (name !== fullName) {
@@ -397,6 +407,26 @@ function SecondPage(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <Modal show={result} target="alert">
+        <Modal.Header>
+          <Modal.Title></Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className="container">
+            <div className="row align-items-center">
+              <p className="row justify-content-center text-center">Form is submitted successfully!</p>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => registrationformStatus()}>
+             Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       </>
   );
 }

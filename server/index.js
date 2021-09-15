@@ -25,12 +25,13 @@ app.use(staticMiddleware);
 
 app.post('/api/auth/sign-up', (req, res, next) => {
   const {
-    name,
+    firstName,
+    lastName,
     dob,
     email,
     password
   } = req.body;
-  if (!name || !dob || !email || !password) {
+  if (!firstName || !lastName || !dob || !email || !password) {
     throw new ClientError(400, 'Email and password are required fields.');
   }
 
@@ -38,11 +39,11 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .hash(password)
     .then(hashedPassword => {
       const sql = `
-        insert into "users" ("name","dob","email", "hashedPassword")
-        values ($1, $2, $3, $4)
-        returning "userId", "name","dob","email", "createdAt"
+        insert into "users" ("firstName", "lastName","dob","email", "hashedPassword")
+        values ($1, $2, $3, $4, $5)
+        returning "userId", "firstName", "lastName","dob","email", "createdAt"
       `;
-      const params = [name, dob, email, hashedPassword];
+      const params = [firstName, lastName, dob, email, hashedPassword];
       return db.query(sql, params);
     })
     .then(result => {
@@ -59,8 +60,14 @@ app.post('/api/auth/sign-in', (req, res, next) => {
   }
 
   const sql = `
-    select *,
-      to_char("dob", 'MM/DD/YYYY') as "birthday"
+    select
+     "userId",
+     "firstName",
+     "lastName",
+     "email",
+     "hashedPassword",
+     "createdAt",
+      to_char("dob", 'YYYY-MM-DD') as "birthday"
       from "users"
      where "email" = $1
   `;
@@ -296,6 +303,7 @@ app.get('/api/appointment', (req, res, next) => {
     .catch(err => next(err));
 
 });
+
 app.post('/api/appointment/create', (req, res, next) => {
   const { time, userId, year, month, date } = req.body;
   const sql = `
@@ -372,7 +380,19 @@ app.delete('/api/appointment/delete/:userId', (req, res, next) => {
 app.post('/api/myDoc/registrationFrom', (req, res, next) => {
   const { userId } = req.body;
   const sql = `
-    select *
+    select
+     "intakeFormId",
+     "firstName",
+     "lastName",
+     "address",
+     "city",
+     "state",
+     "zip",
+     "pastMedicalHistory",
+     "familyHistory",
+     "chiefComplain",
+     "comment",
+     to_char("dateOfBirth", 'YYYY-MM-DD') as "dateOfBirth"
     from "intakeForm"
     where "userId"=$1
   `;

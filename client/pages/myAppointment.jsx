@@ -135,10 +135,8 @@ export default class MyAppointment extends React.Component {
 
     let selectedDayIndex = null;
 
-    // adding blank days before the day that 1st date of the month in first week
-
     if (this.state.firstDay !== 'Monday') {
-      for (let i = 1; i < 7; i++) {
+      for (let i = 1; i < this.state.firstDayIndex; i++) {
         message = '';
         days.push(<td key={'blank' + i}><div></div><div className="availableAppt mt-1">{message}</div></td>);
       }

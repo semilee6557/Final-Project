@@ -60,9 +60,8 @@ export default class AppointmentTable extends React.Component {
     const curMonth = today.getMonth();
     this.setState({ monthIndex: curMonth });
 
-    const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const firstDayIndex = new Date(2021, today.getMonth(), 1).getDay();
-    const firstDay = weekday[firstDayIndex];
+    const firstDay = this.weekday[firstDayIndex];
     const lastDate = new Date(2021, today.getMonth() + 1, 0).getDate();
 
     const startDateofWeek = [];
@@ -124,13 +123,10 @@ export default class AppointmentTable extends React.Component {
     let message = '';
     let day = null;
 
-    const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let selectedDayIndex = null;
 
-    // adding blank days before the day that 1st date of the month in first week
-
     if (this.state.firstDay !== 'Monday') {
-      for (let i = 1; i < 7; i++) {
+      for (let i = 1; i < this.state.firstDayIndex; i++) {
         message = '';
         days.push(<td key={'blank' + i}><div></div><div className="availableAppt mt-1">{message}</div></td>);
       }
@@ -144,7 +140,7 @@ export default class AppointmentTable extends React.Component {
       }
 
       selectedDayIndex = new Date(2021, this.state.monthIndex, i + 1).getDay();
-      day = weekday[selectedDayIndex];
+      day = this.weekday[selectedDayIndex];
       if (day === 'Sunday' || day === 'Saturday') {
         message = '';
       } else if (bookedAppt.length === 6) {
